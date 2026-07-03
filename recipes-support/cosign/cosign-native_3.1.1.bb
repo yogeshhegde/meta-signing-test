@@ -5,7 +5,7 @@ LICENSE = "Apache-2.0"
 LIC_FILES_CHKSUM = "file://${COMMON_LICENSE_DIR}/Apache-2.0;md5=89aea4e17d99a7cacdbeed46a0096b10"
 
 SRC_URI = "https://github.com/sigstore/cosign/releases/download/v${PV}/cosign-linux-amd64;downloadfilename=cosign-${PV}-linux-amd64"
-SRC_URI[sha256sum] = "c956e5dfcac53d52bcf058360d579472f0c1d2d9b69f55209e256fe7783f4c74"
+SRC_URI[sha256sum] = "ae1ecd212663f3693ad9edf8b1a183900c9a52d3155ba6e354237f9a0f6463fc"
 
 inherit native
 

@@ -28,6 +28,7 @@ INHERIT += "sbom-signing"
 SBOM_SIGN_ENABLED = "1"
 SBOM_SIGN_BACKEND = "cosign"
 SBOM_SIGN_COSIGN_KEY_PATH = "${TOPDIR}/keys/cosign.key"
+SBOM_SIGN_COSIGN_PASSWORD_FILE = "${TOPDIR}/tmp/pass.txt"
 ```
 
 Build as normal. A `.spdx.json.sig` bundle file will appear alongside the SBOM in `tmp/deploy/images/<machine>/`.
@@ -41,14 +42,30 @@ cosign verify-blob \
     tmp/deploy/images/<machine>/<image>.spdx.json
 ```
 
+When `SBOM_SIGN_COSIGN_AIR_GAPPED_ENABLED` is used, the verification command line is:
+
+```bash
+cosign verify-blob \
+    --insecure-ignore-tlog=true \
+    --insecure-ignore-sct=true \
+    --key keys/cosign.pub \
+    --bundle tmp/deploy/images/<machine>/<image>.spdx.json.sig \
+    tmp/deploy/images/<machine>/<image>.spdx.json
+```
+
 ## Configuration
 
 **Cosign (default)**
+
+Note: by default cosign needs to Internet connection for fetching signing
+metadata. The option `SBOM_SIGN_COSIGN_AIR_GAPPED_ENABLED` exists to avoid
+any Internet dependency.
 
 | Variable | Default | Description |
 |---|---|---|
 | `SBOM_SIGN_COSIGN_KEY_PATH` | `${TOPDIR}/keys/cosign.key` | Path to private key |
 | `SBOM_SIGN_COSIGN_PASSWORD_FILE` | | File containing key password |
+| `SBOM_SIGN_COSIGN_AIR_GAPPED_ENABLED` | Sign without external connectivity |
 | `SBOM_SIGN_COSIGN_EXTRA_ARGS` | | Optional Extra arguments for `cosign sign-blob` |
 
 **GPG**
