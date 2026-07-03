@@ -106,3 +106,4 @@ python __anonymous() {
 # Task metadata
 do_sbom_sign[nostamp] = "1"
 do_sbom_sign[vardepsexclude] = "DATETIME"
+do_sbom_sign[network] = "1"

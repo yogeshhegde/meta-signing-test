@@ -66,6 +66,9 @@ def sbom_signing_cosign_sign(filepath, d):
         '--bundle', sig_file,
     ]
 
+    if d.getVar('SBOM_SIGN_COSIGN_AIR_GAPPED_ENABLED') == '1':
+        cmd_args.extend(['--tlog-upload=false', '--use-signing-config=false'])
+
     if extra_args:
         cmd_args.extend(extra_args.split())
 
